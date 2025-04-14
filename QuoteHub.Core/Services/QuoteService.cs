@@ -46,9 +46,33 @@ internal class QuoteService : IQuoteService
 
         return await _quoteRepository.AddQuoteAsync(quote);
     }
-    public async Task UpdateQuoteAsync(QuoteDBO quote)
+    public async Task<QuoteDBO?> UpdateQuoteAsync(UpdateQuoteRequestDTO quoteRequest)
     {
-        await _quoteRepository.UpdateQuoteAsync(quote);
+        QuoteDBO quote;
+
+        if (quoteRequest.AuthorId == null && quoteRequest.Author != null)
+        {
+            await _authorRepository.UpdateAuthorAsync(quoteRequest.Author);
+            quote = new QuoteDBO
+            {
+                Id = quoteRequest.Id,
+                QuoteText = quoteRequest.QuoteText,
+                AuthorId = quoteRequest.Author.Id,
+                LanguageId = quoteRequest.LanguageId
+            };
+        }
+        else if (quoteRequest.AuthorId != null)
+        {
+            quote = new QuoteDBO
+            {
+                Id = quoteRequest.Id,
+                QuoteText = quoteRequest.QuoteText,
+                AuthorId = quoteRequest.AuthorId.Value,
+                LanguageId = quoteRequest.LanguageId
+            };
+        } else { return null; }
+
+        return await _quoteRepository.UpdateQuoteAsync(quote);
     }
     public async Task DeleteQuoteAsync(Guid quoteId)
     {

@@ -8,7 +8,7 @@ public interface IQuoteService
     Task<QuoteDBO?> GetQuoteByIdAsync(Guid quoteId);
     Task<IEnumerable<QuoteDBO>> GetAllQuotesAsync();
     Task<QuoteDBO> AddQuoteAsync(AddQuoteRequestDTO quote);
-    Task UpdateQuoteAsync(QuoteDBO quote);
+    Task<QuoteDBO?> UpdateQuoteAsync(UpdateQuoteRequestDTO quoteRequest);
     Task DeleteQuoteAsync(Guid quoteId);
     Task<IEnumerable<QuoteDBO>> GetQuotesByAuthorIdAsync(Guid authorId);
     Task<IEnumerable<QuoteDBO>> GetQuotesByLanguageIdAsync(Guid languageId);
