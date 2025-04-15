@@ -27,7 +27,7 @@ builder.Services.AddSwaggerGen();
 
 // DB connection setup
 string connectionString = builder.Configuration.GetConnectionString("DBConnection") ?? string.Empty;
-Console.WriteLine($"Connection string: {connectionString}");
+//Console.WriteLine($"Connection string: {connectionString}");
 
 builder.Services.AddDbContext<DatabaseContext>(options =>
 {
