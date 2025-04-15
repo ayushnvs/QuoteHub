@@ -16,7 +16,7 @@ COPY ["QuoteHub/QuoteHub.csproj", "QuoteHub/"]
 COPY ["QuoteHub.Core/QuoteHub.Core.csproj", "QuoteHub.Core/"]
 RUN dotnet restore "./QuoteHub/QuoteHub.csproj"
 COPY . .
-WORKDIR "/src/QuoteHub"
+WORKDIR "/QuoteHub"
 RUN dotnet build "./QuoteHub.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
