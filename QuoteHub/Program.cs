@@ -21,6 +21,20 @@ builder.Services.AddControllers(options =>
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.WithOrigins("*") // Specify your frontend origin
+               .AllowAnyMethod() // Allows all HTTP methods (GET, POST, PUT, DELETE, etc.)
+               .AllowAnyHeader(); // Allows all headers
+                                  // .AllowCredentials(); // If you need to handle cookies or authorization headers
+    });
+
+    // You can also define named policies if needed
+    // options.AddPolicy("MySpecificPolicy", builder => { ... });
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

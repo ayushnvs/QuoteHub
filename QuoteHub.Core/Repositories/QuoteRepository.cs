@@ -18,7 +18,7 @@ public class QuoteRepository : IQuoteRepository
     }
     public async Task<IEnumerable<QuoteDBO>> GetAllQuotesAsync()
     {
-        return await _context.Quotes.ToListAsync();
+        return await _context.Quotes.Include(q => q.Author).Include(q => q.Language).ToListAsync();
     }
     public async Task<QuoteDBO> AddQuoteAsync(QuoteDBO quote)
     {
@@ -78,7 +78,7 @@ public class QuoteRepository : IQuoteRepository
 
     public async Task<IEnumerable<QuoteDBO>> SearchQuoteByPartialStringAsync(string partialString)
     {
-        return await _context.Quotes
+        return await _context.Quotes.Include(q => q.Author).Include(q => q.Language)
             .Where(q => q.QuoteText.Contains(partialString))
             .ToListAsync();
     }
