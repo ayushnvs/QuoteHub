@@ -37,7 +37,7 @@ internal class QuoteService : IQuoteService
 
             await _authorRepository.AddAuthorAsync(author);
 
-            quote = new QuoteDBO() { QuoteText = quoteRequest.QuoteText, AuthorId = author.Id, LanguageId = quoteRequest.LanguageId};
+            quote = new QuoteDBO() { QuoteText = quoteRequest.QuoteText, AuthorId = author.Id, LanguageId = quoteRequest.LanguageId };
         }
         else
         {
@@ -70,7 +70,8 @@ internal class QuoteService : IQuoteService
                 AuthorId = quoteRequest.AuthorId.Value,
                 LanguageId = quoteRequest.LanguageId
             };
-        } else { return null; }
+        }
+        else { return null; }
 
         return await _quoteRepository.UpdateQuoteAsync(quote);
     }
@@ -101,5 +102,18 @@ internal class QuoteService : IQuoteService
     public async Task<IEnumerable<QuoteDBO>> SearchQuoteByPartialStringAsync(string partialString)
     {
         return await _quoteRepository.SearchQuoteByPartialStringAsync(partialString);
+    }
+
+    //Get a random quote
+    public async Task<QuoteDBO?> GetRandomQuoteAsync()
+    {
+        var quotes = await _quoteRepository.GetAllQuotesAsync();
+        if (quotes == null || !quotes.Any())
+        {
+            return null;
+        }
+        Random random = new Random();
+        int index = random.Next(quotes.Count());
+        return quotes.ElementAt(index);
     }
 }
