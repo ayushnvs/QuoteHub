@@ -53,3 +53,18 @@ document.getElementById('searchInput').addEventListener('keypress', function(eve
         triggerSearch();
     }
 });
+
+
+function openContactDialog() {
+    const dialog = document.getElementById('contactDialog');
+    const overlay = document.getElementById('contactOverlay');
+    dialog.style.display = 'block';
+    overlay.style.display = 'block';
+}
+
+function closeContactDialog() {
+    const dialog = document.getElementById('contactDialog');
+    const overlay = document.getElementById('contactOverlay');
+    dialog.style.display = 'none';
+    overlay.style.display = 'none';
+}
