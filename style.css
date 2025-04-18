@@ -6,15 +6,29 @@ body {
 .search-container {
     position: fixed;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    left: 48%;
+    transform: translate(-52%, -50%);
     width: 50%;
     max-width: 400px;
     transition: top 0.5s ease, transform 0.5s ease;
 }
+.search-header {
+    margin-left: 10px;
+}
+
+.search-header p {
+    font-size: 16px;
+    color: #333;
+    margin: 5px
+}
+.search-header h1 {
+    font-size: 32px;
+    color: #333;
+    margin: 0 0 10px 0;
+}
 .search-container.top {
-    top: 20px;
-    transform: translate(-50%, 0);
+    top: 50px;
+    transform: translate(-52%, 0);
 }
 .search-input {
     width: 100%;
@@ -28,14 +42,15 @@ body {
 .search-icon {
     position: absolute;
     top: 50%;
-    right: 15px;
+    right: -40px;
     transform: translateY(-50%);
     cursor: pointer;
     color: #888;
     font-size: 18px;
+    padding-bottom: 10px;
 }
 .quotes-container {
-    margin-top: 100px;
+    margin-top: 150px;
     padding: 20px;
     text-align: center;
 }
