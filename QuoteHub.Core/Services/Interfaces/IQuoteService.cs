@@ -16,4 +16,5 @@ public interface IQuoteService
     Task<IEnumerable<QuoteDBO>> GetQuotesByAuthorNameAsync(string authorName);
     Task<IEnumerable<QuoteDBO>> GetQuotesByAuthorAliasAsync(string authorAlias);
     Task<IEnumerable<QuoteDBO>> SearchQuoteByPartialStringAsync(string partialString);
+    Task<QuoteDBO?> GetRandomQuoteAsync();
 }

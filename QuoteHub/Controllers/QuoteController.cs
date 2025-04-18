@@ -226,4 +226,24 @@ public class QuoteController : ControllerBase
         response.Message = "Quotes retrieved successfully";
         return Ok(response);
     }
+
+    // Get a random quote
+    [HttpGet("random")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<ActionResult<QuoteDBO>> GetRandomQuoteAsync()
+    {
+        BaseResponse<QuoteDBO> response = new BaseResponse<QuoteDBO>(ResponseStatus.Fail);
+        QuoteDBO? randomQuote = await _quoteService.GetRandomQuoteAsync();
+        if (randomQuote == null)
+        {
+            response.Message = "No quotes found";
+            return NotFound(response);
+        }
+        response.Data = randomQuote;
+        response.Status = ResponseStatus.Success;
+        response.Message = "Random quote retrieved successfully";
+        return Ok(response);
+    }
 }
