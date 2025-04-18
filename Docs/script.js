@@ -4,7 +4,7 @@ function triggerSearch() {
         alert('Please enter a search term.');
         return;
     }
-    fetch(`https://localhost:7148/api/quote/search/${query}`, {
+    fetch(`http:/quotehubapi.onrender.com/api/quote/search/${query}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
