@@ -12,7 +12,7 @@ public class AuthorDBO : BaseDBO
     public Gender Gender { get; set; }
 
     [Column("alias", TypeName = "VARCHAR(100)")]
-    public string Alias { get; set; } = string.Empty;
+    public string? Alias { get; set; }
 
     [Column("date_of_birth", TypeName = "DATE")]
     public DateOnly? DateOfBirth { get; set; } = null;
