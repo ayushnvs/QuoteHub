@@ -9,6 +9,33 @@
 </head>
 
 <body>
+    <style>
+        nav{
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        .contribute-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+    </style>
+    <nav>
+        <button class="contribute-button" onclick="openQuickCreateForm()">Contribute</button>
+    </nav>
     <div class="search-container" id="searchContainer">
         <header class="search-header">
             <p>Welcome to</p>
@@ -21,14 +48,44 @@
     </div>
     <div class="quotes-container" id="quotesContainer"></div>
 
+    <div class="quick-create-form" id="quickCreateForm">
+        <h2>Quick Create</h2>
+        <label for="quoteText">Quote Text:</label>
+        <textarea id="quoteText" placeholder="Enter quote text"></textarea>
+
+        <label for="authorSearch">Search Author:</label>
+        <input type="text" id="authorSearch" placeholder="Search for an author" oninput="searchAuthor()" />
+        <select id="authorDropdown"></select>
+        <button id="addAuthorButton" onclick="openAddAuthorForm()">+</button>
+
+        <!-- Add Author Form -->
+        <div class="add-author-form" id="addAuthorForm">
+            <h3>Add Author</h3>
+            <label for="authorName">Name:</label>
+            <input type="text" id="authorName" placeholder="Enter author name" />
+
+            <label for="authorGender">Gender:</label>
+            <select id="authorGender">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <label for="authorAlias">Alias:</label>
+            <input type="text" id="authorAlias" placeholder="Enter alias (optional)" />
+
+            <label for="authorDOB">Date of Birth:</label>
+            <input type="date" id="authorDOB" />
+
+            <button onclick="addAuthor()">Add Author</button>
+        </div>
+
+        <button onclick="submitQuote()">Submit</button>
+        <button onclick="closeQuickCreateForm()">Close</button>
+    </div>
+
     <!-- Overlay -->
     <div class="contact-overlay" id="contactOverlay"></div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <p class="contact-button" onclick="openContactDialog()">Contact</p>
-        <p>ayushnvs &copy; 2025. All rights reserved.</p>
-    </footer>
 
     <!-- Contact Dialog -->
     <div class="contact-dialog" id="contactDialog">
@@ -37,6 +94,13 @@
             <button class="close-dialog" onclick="closeContactDialog()">Close</button>
         </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="contact-button" onclick="openContactDialog()">Contact</p>
+        <p>ayushnvs &copy; 2025. All rights reserved.</p>
+    </footer>
+
     <script src="script.js"></script>
 </body>
 

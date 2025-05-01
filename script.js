@@ -68,3 +68,86 @@ function closeContactDialog() {
     dialog.style.display = 'none';
     overlay.style.display = 'none';
 }
+
+function openQuickCreateForm() {
+    document.getElementById('quickCreateForm').style.display = 'block';
+}
+
+function closeQuickCreateForm() {
+    document.getElementById('quickCreateForm').style.display = 'none';
+    document.getElementById('addAuthorForm').style.display = 'none';
+}
+
+function openAddAuthorForm() {
+    document.getElementById('addAuthorForm').style.display = 'block';
+}
+
+function searchAuthor() {
+    const query = document.getElementById('authorSearch').value;
+    if (query.trim() === '') return;
+
+    fetch(`https://localhost:7148/api/author/search/${query}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            const dropdown = document.getElementById('authorDropdown');
+            dropdown.innerHTML = ''; // Clear previous options
+
+            if (data.status === 'Success' && data.data.length > 0) {
+                data.data.forEach((author) => {
+                    const option = document.createElement('option');
+                    option.value = author.id;
+                    option.textContent = author.name;
+                    dropdown.appendChild(option);
+                });
+            } else {
+                dropdown.innerHTML = '<option>No authors found</option>';
+            }
+        })
+        .catch((error) => console.error('Error:', error));
+}
+
+function addAuthor() {
+    const name = document.getElementById('authorName').value;
+    const gender = document.getElementById('authorGender').value;
+    const alias = document.getElementById('authorAlias').value;
+    const dob = document.getElementById('authorDOB').value;
+
+    fetch('https://quotehubapi.onrender.com/api/author', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, gender, alias, dateOfBirth: dob }),
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            alert('Author added successfully!');
+            document.getElementById('addAuthorForm').style.display = 'none';
+        })
+        .catch((error) => console.error('Error:', error));
+}
+
+function submitQuote() {
+    const quoteText = document.getElementById('quoteText').value;
+    const authorId = document.getElementById('authorDropdown').value;
+    const languageId = '7a5fefda-187d-11f0-a109-062bff1cb1bf'; // Example language ID
+
+    fetch('https://localhost:7148/api/quote', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ quoteText, authorId, languageId }),
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            alert('Quote added successfully!');
+            closeQuickCreateForm();
+        })
+        .catch((error) => console.error('Error:', error));
+}
