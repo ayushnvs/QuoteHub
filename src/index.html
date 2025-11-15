@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quote Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+</head>
+
+<body>
+    <style>
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #333;
+            color: white;
+            padding: 5px;
+            text-align: center;
+        }
+
+        .contribute-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 2px 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 2px 2px;
+            cursor: pointer;
+        }
+    </style>
+    <nav>
+        <button class="contribute-button" onclick="openQuickCreateForm()">Contribute</button>
+    </nav>
+    <div class="search-container" id="searchContainer">
+        <header class="search-header">
+            <p>Welcome to</p>
+            <h1>Quote Hub</h1>
+        </header>
+        <div class="search-element">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search for quotes..." />
+            <span class="search-icon" onclick="triggerSearch()">&#128269;</span>
+        </div>
+    </div>
+    <div class="quotes-container" id="quotesContainer"></div>
+
+    <div class="quick-create-form" id="quickCreateForm">
+        <h2>Quick Create</h2>
+        <section class="sec-add-quote">
+            <label for="quoteText">Quote Text:</label>
+            <textarea type="text" id="quoteText" placeholder="Enter quote text"></textarea>
+        </section>
+
+        <section class="sec-search-author">
+            <label for="authorSearch">Search Author:</label>
+            <input type="text" id="authorSearch" placeholder="Search for an author" oninput="searchAuthor()" />
+            <select id="authorDropdown"></select>
+            <button class="btn btn-primary" id="addAuthorButton" onclick="openAddAuthorForm()">Add Author</button>
+        </section>
+
+        <!-- Add Author Form -->
+        <div class="add-author-form" id="addAuthorForm">
+            <h3>Add Author</h3>
+            <label for="authorName">Name:</label>
+            <input type="text" id="authorName" placeholder="Enter author name" />
+
+            <label for="authorGender">Gender:</label>
+            <select id="authorGender">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <label for="authorAlias">Alias:</label>
+            <input type="text" id="authorAlias" placeholder="Enter alias (optional)" />
+
+            <label for="authorDOB">Date of Birth:</label>
+            <input type="date" id="authorDOB" />
+
+            <button class="btn btn-primary" onclick="addAuthor()">Add Author</button>
+            <button class="btn btn-secondary" onclick="(()=>{
+                document.getElementById('addAuthorForm').style.display='none';
+                document.querySelector('.sec-search-author').style.display = 'block';
+                document.querySelector('.sec-submit-quickcreate').style.display = 'block';
+                document.querySelector('.sec-select-language').style.display = 'block';
+                document.querySelector('.sec-add-quote').style.display = 'block';
+            })()">close</button>
+        </div>
+        <br>
+        <section class="sec-select-language">
+            <label for="langaugeSearch">Search Language:</label>
+            <input type="text" id="langaugeSearch" placeholder="Search for an language" oninput="searchLanguage()" />
+            <select id="languageDropdown">
+                <option value="b1277a36-1ed3-11f0-9b70-cafb4ce74228">English</option>
+                <option value="b1cfdb3e-1ed3-11f0-9b70-cafb4ce74228">Hindi</option>
+                <option value="b275d002-1ed3-11f0-9b70-cafb4ce74228">Sanskrit</option>
+            </select>
+        </section>
+
+        <section class="sec-submit-quickcreate">
+            <button class="btn btn-primary" onclick="submitQuote()">Submit</button>
+            <button class="btn btn-secondary" onclick="closeQuickCreateForm()">Close</button>
+        </section>
+    </div>
+
+    <!-- Overlay -->
+    <div class="contact-overlay" id="contactOverlay"></div>
+
+    <!-- Contact Dialog -->
+    <div class="contact-dialog" id="contactDialog">
+        <div class="dialog-content">
+            <p>Contact us at: <a href="mailto:support@quotehub.com">ayush.mishra.ald@gmail.com</a></p>
+            <button class="btn btn-secondary close-dialog" onclick="closeContactDialog()">Close</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="contact-button" onclick="openContactDialog()">Contact</p>
+        <p>ayushnvs &copy; 2025. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.min.js"
+        integrity="sha384-VQqxDN0EQCkWoxt/0vsQvZswzTHUVOImccYmSyhJTp7kGtPed0Qcx8rK9h9YEgx+"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
