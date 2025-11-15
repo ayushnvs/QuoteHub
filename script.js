@@ -1,4 +1,4 @@
-const API_URL = 'https://localhost:7148';
+const API_URL = 'https://quotehubapi.onrender.com';
 
 function triggerSearch() {
     const query = document.getElementById('searchInput').value;
